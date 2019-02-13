@@ -19,15 +19,51 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Set the view's delegate
         sceneView.delegate = self
-        
-        // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
-        
-        // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
-        
-        // Set the scene to the view
+      
+       let scene = SCNScene(named: "art.scnassets/table.scn")!
+       // let scene = SCNScene()
         sceneView.scene = scene
+       // createShape()
+        addLight()
+    }
+    
+    func createShape() {
+        let pyramid = SCNPyramid(width: 0.2, height: 0.2, length: 0.2)
+        pyramid.firstMaterial?.diffuse.contents = UIColor.blue
+        let pyramidNode = SCNNode(geometry: pyramid)
+        pyramidNode.position.z = -0.8
+        sceneView.scene.rootNode.addChildNode(pyramidNode)
+        
+        // Box
+        let box = SCNBox(width: 0.2, height: 0.2, length: 0.2, chamferRadius: 0)
+        box.firstMaterial?.diffuse.contents = UIColor.red
+        let boxNode = SCNNode(geometry: box)
+        boxNode.position = SCNVector3Make(-0.5, 0, -0.8)
+        sceneView.scene.rootNode.addChildNode(boxNode)
+        
+        let spear = SCNSphere(radius: 0.15)
+        spear.firstMaterial?.diffuse.contents = UIColor.yellow
+        let spearNode = SCNNode(geometry: spear)
+        spearNode.position = SCNVector3Make(0.5, 0, -0.8)
+        sceneView.scene.rootNode.addChildNode(spearNode)
+        
+    }
+    
+    func addLight() {
+        let directional = SCNLight()
+        directional.type = .directional
+        let directionalNode = SCNNode()
+        directionalNode.light = directional
+        directionalNode.eulerAngles.x = -.pi/4
+        sceneView.scene.rootNode.addChildNode(directionalNode)
+        
+        let ambiyant = SCNLight()
+        ambiyant.type = .ambient
+        let ambiyantNode = SCNNode()
+        ambiyantNode.light = ambiyant
+        let color = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        ambiyant.color = color
+        sceneView.scene.rootNode.addChildNode(ambiyantNode)
     }
     
     override func viewWillAppear(_ animated: Bool) {
