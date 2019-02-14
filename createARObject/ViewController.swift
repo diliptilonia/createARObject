@@ -48,7 +48,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.scene.rootNode.addChildNode(spearNode)
         
     }
-    
+    // adding Light 
+    // Adding Directional Light here
     func addLight() {
         let directional = SCNLight()
         directional.type = .directional
@@ -57,6 +58,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         directionalNode.eulerAngles.x = -.pi/4
         sceneView.scene.rootNode.addChildNode(directionalNode)
         
+        
+        // adding abmiyant Ligth
         let ambiyant = SCNLight()
         ambiyant.type = .ambient
         let ambiyantNode = SCNNode()
